@@ -45,18 +45,22 @@ FOREIGN KEY (emp_no) REFERENCES employees(emp_no));
 
 
 
---Homework question #1
+--question #1
+--For each employee list: employee number, last name, first name, gender, and salary
 SELECT employees.emp_no, employees.last_name, employees.first_name, 
 employees.gender, salaries.salary
 FROM salaries
 INNER JOIN employees 
 ON employees.emp_no=salaries.emp_no;
 
---Homework question #2
+--question #2
+--List employees who were hired in 1986
 SELECT first_name, last_name FROM employees
 WHERE hire_date LIKE '1986%';
 
---Homework question #3
+--question #3
+--List the manager of each department with the following: department number, 
+--department name, manager's employee number, last name, first name, and start and end employment dates
 SELECT dept_manager.dept_no, departments.dept_name, dept_manager.emp_no, 
 employees.last_name, employees.first_name, dept_manager.from_date,
 dept_manager.to_date
@@ -64,19 +68,24 @@ FROM dept_manager
 JOIN employees ON employees.emp_no=dept_manager.emp_no
 JOIN departments ON departments.dept_no=dept_manager.dept_no;
 
---Homework question #4
-SELECT employees.emp_no, employees.last_name, employees.first_name,
+--question #4
+--List the department of each employee with the following: 
+--employee number, last name, first name, and department name
+SELECT dept_emp.emp_no, employees.last_name, employees.first_name,
 departments.dept_name
-FROM dept_manager
-JOIN employees ON employees.emp_no=dept_manager.emp_no
-JOIN departments ON departments.dept_no=dept_manager.dept_no;
+FROM dept_emp
+JOIN employees ON employees.emp_no=dept_emp.emp_no
+JOIN departments ON departments.dept_no=dept_emp.dept_no;
 
---Homework question #5
+--question #5
+--List employees whose first name is "Hercules" and last names begin with "B."
 SELECT first_name, last_name FROM employees
 WHERE first_name = 'Hercules'
 AND last_name LIKE 'B%';
 
---Homework question #6
+--question #6
+--List employees in the Sales department, including:
+--their employee number, last name, first name, and department name.
 SELECT employees.emp_no, employees.first_name, employees.last_name, 
 departments.dept_name
 FROM dept_emp
@@ -84,7 +93,9 @@ JOIN employees ON dept_emp.emp_no=employees.emp_no
 JOIN departments ON departments.dept_no=dept_emp.dept_no
 WHERE departments.dept_name = 'Sales';
 
---Homework question #7
+--question #7
+--List all employees in the Sales and Development departments, including:
+--their employee number, last name, first name, and department name.
 SELECT employees.emp_no, employees.first_name, employees.last_name, 
 departments.dept_name
 FROM dept_emp
@@ -93,7 +104,9 @@ JOIN departments ON departments.dept_no=dept_emp.dept_no
 WHERE departments.dept_name = 'Sales'
 OR departments.dept_name = 'Development';
 
---Homework question #8
+--question #8
+--In descending order, list the frequency count of employee last names
+--i.e., how many employees share each last name.
 SELECT last_name, COUNT(last_name) AS "Last_name_frequency"
 FROM employees
 GROUP BY last_name
